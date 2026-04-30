@@ -35,12 +35,43 @@ export const appRouter = router({
       .query(async ({ input }) => {
         return getProductById(input.id);
       }),
+
+    create: protectedProcedure
+      .input(z.object({
+        nameAr: z.string().min(1),
+        nameTr: z.string().min(1),
+        descriptionAr: z.string().optional(),
+        descriptionTr: z.string().optional(),
+        price: z.number().positive(),
+        discountPercentage: z.number().min(0).max(100).default(0),
+        categoryId: z.number(),
+        imageUrl: z.string(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        if (ctx.user?.role !== 'admin') throw new Error('Unauthorized');
+        // TODO: Implement create product
+        return { success: true };
+      }),
   }),
 
   categories: router({
     list: publicProcedure.query(async () => {
       return getCategories();
     }),
+
+    create: protectedProcedure
+      .input(z.object({
+        nameAr: z.string().min(1),
+        nameTr: z.string().min(1),
+        descriptionAr: z.string().optional(),
+        descriptionTr: z.string().optional(),
+        imageUrl: z.string().optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        if (ctx.user?.role !== 'admin') throw new Error('Unauthorized');
+        // TODO: Implement create category
+        return { success: true };
+      }),
   }),
 
   inquiries: router({

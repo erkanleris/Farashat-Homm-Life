@@ -1,6 +1,7 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import { t } from '@/lib/i18n';
 import { Button } from '@/components/ui/button';
+import { SEOHead } from '@/components/SEOHead';
 import { Link } from 'wouter';
 import { ArrowRight } from 'lucide-react';
 
@@ -9,7 +10,13 @@ export default function Home() {
   const isArabic = language === 'ar';
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <>
+      <SEOHead
+        title={isArabic ? 'فراشات هوم - مستحضرات تجميل فاخرة' : 'Farashat Homm Life - Luxury Beauty Products'}
+        description={isArabic ? 'متجر مستحضرات تجميل وعناية فاخرة من Homm Life التركية بأسعار منافسة تصل إلى 50% خصم' : 'Luxury beauty and care products from Turkish Homm Life with competitive prices up to 50% discount'}
+        keywords={isArabic ? 'مستحضرات تجميل، عناية بالبشرة، عناية بالجسم، عناية بالشعر' : 'beauty products, skincare, body care, hair care'}
+      />
+      <div className="min-h-screen flex flex-col">
       {/* Hero Section */}
       <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background gradient */}
@@ -123,6 +130,7 @@ export default function Home() {
           </Link>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 }
