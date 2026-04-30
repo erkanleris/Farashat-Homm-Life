@@ -4,14 +4,22 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { LanguageProvider } from "./contexts/LanguageContext";
+import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
+import { WhatsAppButton } from "./components/WhatsAppButton";
 import Home from "./pages/Home";
+import Catalog from "./pages/Catalog";
+import Contact from "./pages/Contact";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
-      <Route path={"/"} component={Home} />
-      <Route path={"/404"} component={NotFound} />
+      <Route path="/" component={Home} />
+      <Route path="/catalog" component={Catalog} />
+      <Route path="/contact" component={Contact} />
+      <Route path="/404" component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
     </Switch>
@@ -26,14 +34,20 @@ function Router() {
 function App() {
   return (
     <ErrorBoundary>
-      <ThemeProvider
-        defaultTheme="light"
-        // switchable
-      >
-        <TooltipProvider>
-          <Toaster />
-          <Router />
-        </TooltipProvider>
+      <ThemeProvider defaultTheme="light" switchable>
+        <LanguageProvider>
+          <TooltipProvider>
+            <Toaster />
+            <div className="flex flex-col min-h-screen">
+              <Header />
+              <main className="flex-1">
+                <Router />
+              </main>
+              <Footer />
+            </div>
+            <WhatsAppButton />
+          </TooltipProvider>
+        </LanguageProvider>
       </ThemeProvider>
     </ErrorBoundary>
   );

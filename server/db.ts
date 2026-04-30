@@ -1,6 +1,6 @@
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { InsertUser, users, categories, products, inquiries, type InsertInquiry } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -89,4 +89,57 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+// Products queries
+export async function getProducts() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(products).where(eq(products.isActive, true));
+}
+
+export async function getProductsByCategory(categoryId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(products).where(eq(products.categoryId, categoryId) && eq(products.isActive, true));
+}
+
+export async function getProductById(id: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(products).where(eq(products.id, id)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+// Categories queries
+export async function getCategories() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(categories);
+}
+
+export async function getCategoryById(id: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(categories).where(eq(categories.id, id)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+// Inquiries queries
+export async function createInquiry(inquiry: InsertInquiry) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const result = await db.insert(inquiries).values(inquiry);
+  return result;
+}
+
+export async function getInquiries() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(inquiries).orderBy(desc(inquiries.createdAt));
+}
+
+export async function markInquiryAsRead(id: number) {
+  const db = await getDb();
+  if (!db) return false;
+  await db.update(inquiries).set({ isRead: true }).where(eq(inquiries.id, id));
+  return true;
+}

@@ -1,4 +1,5 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { boolean, decimal, int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { relations } from "drizzle-orm";
 
 /**
  * Core user table backing auth flow.
@@ -25,4 +26,64 @@ export const users = mysqlTable("users", {
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
-// TODO: Add your tables here
+// Categories table
+export const categories = mysqlTable("categories", {
+  id: int("id").autoincrement().primaryKey(),
+  nameAr: varchar("nameAr", { length: 255 }).notNull(),
+  nameTr: varchar("nameTr", { length: 255 }).notNull(),
+  descriptionAr: text("descriptionAr"),
+  descriptionTr: text("descriptionTr"),
+  imageUrl: text("imageUrl"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Category = typeof categories.$inferSelect;
+export type InsertCategory = typeof categories.$inferInsert;
+
+// Products table
+export const products = mysqlTable("products", {
+  id: int("id").autoincrement().primaryKey(),
+  categoryId: int("categoryId").notNull(),
+  nameAr: varchar("nameAr", { length: 255 }).notNull(),
+  nameTr: varchar("nameTr", { length: 255 }).notNull(),
+  descriptionAr: text("descriptionAr"),
+  descriptionTr: text("descriptionTr"),
+  price: decimal("price", { precision: 10, scale: 2 }).notNull(),
+  discountPercentage: int("discountPercentage").default(0).notNull(),
+  imageUrl: text("imageUrl").notNull(),
+  isActive: boolean("isActive").default(true).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Product = typeof products.$inferSelect;
+export type InsertProduct = typeof products.$inferInsert;
+
+// Inquiries table
+export const inquiries = mysqlTable("inquiries", {
+  id: int("id").autoincrement().primaryKey(),
+  productId: int("productId"),
+  name: varchar("name", { length: 255 }).notNull(),
+  email: varchar("email", { length: 320 }),
+  phone: varchar("phone", { length: 20 }),
+  message: text("message"),
+  language: varchar("language", { length: 10 }).default("ar").notNull(),
+  isRead: boolean("isRead").default(false).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type Inquiry = typeof inquiries.$inferSelect;
+export type InsertInquiry = typeof inquiries.$inferInsert;
+
+// Relations
+export const productsRelations = relations(products, ({ one }) => ({
+  category: one(categories, {
+    fields: [products.categoryId],
+    references: [categories.id],
+  }),
+}));
+
+export const categoriesRelations = relations(categories, ({ many }) => ({
+  products: many(products),
+}));
