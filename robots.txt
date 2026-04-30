@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Allow: /catalog
+Allow: /contact
+Disallow: /admin
+Disallow: /api
+
+Sitemap: https://farashat.manus.space/sitemap.xml
