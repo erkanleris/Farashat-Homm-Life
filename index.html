@@ -26,12 +26,20 @@
             --border: #2d2d2d;
         }
 
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
         body {
             font-family: 'Cairo', 'Poppins', sans-serif;
             background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
             color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 100px;
         }
 
         /* Header */
@@ -39,7 +47,7 @@
             background: rgba(13, 13, 13, 0.98);
             backdrop-filter: blur(10px);
             border-bottom: 3px solid var(--gold);
-            padding: 20px;
+            padding: 15px;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -52,22 +60,28 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 15px;
         }
 
         .logo {
-            font-size: 2em;
+            font-size: 1.5em;
             font-weight: 700;
             background: linear-gradient(45deg, var(--pink), var(--gold));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
+            white-space: nowrap;
         }
 
         .nav {
-            display: flex;
-            gap: 30px;
+            display: none;
+            gap: 20px;
             align-items: center;
+        }
+
+        .nav.active {
+            display: flex;
         }
 
         .nav a {
@@ -75,101 +89,108 @@
             text-decoration: none;
             transition: all 0.3s;
             font-weight: 600;
-            position: relative;
+            font-size: 0.9em;
         }
 
         .nav a:hover {
             color: var(--pink);
         }
 
-        .nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gold);
-            transition: width 0.3s;
-        }
-
-        .nav a:hover::after {
-            width: 100%;
-        }
-
-        .lang-toggle, .theme-toggle {
+        .lang-toggle {
             background: linear-gradient(45deg, var(--pink), var(--gold));
             border: none;
             color: var(--dark);
-            padding: 10px 20px;
+            padding: 8px 15px;
             border-radius: 50px;
             cursor: pointer;
             font-weight: 700;
             transition: all 0.3s;
-            margin-left: 10px;
+            font-size: 0.85em;
+            white-space: nowrap;
         }
 
-        .lang-toggle:hover, .theme-toggle:hover {
+        .lang-toggle:hover {
             transform: scale(1.05);
             box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
         }
 
-        /* Hero Section */
-        .hero {
+        .menu-toggle {
+            background: var(--gold);
+            color: var(--dark);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 100px 20px;
+            width: 100%;
+            padding: 0 15px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 40px 15px;
             text-align: center;
             background: linear-gradient(135deg, rgba(255, 20, 147, 0.1), rgba(255, 215, 0, 0.1));
-            border-radius: 20px;
-            margin-top: 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+            margin-bottom: 30px;
         }
 
         .section-label {
             display: inline-block;
             background: var(--pink);
             color: white;
-            padding: 8px 20px;
+            padding: 6px 15px;
             border-radius: 50px;
-            font-size: 0.9em;
+            font-size: 0.8em;
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .hero-title {
-            font-size: 4em;
-            margin-bottom: 20px;
+            font-size: 2.5em;
+            margin-bottom: 15px;
             background: linear-gradient(45deg, var(--pink), var(--gold), var(--pink));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: fadeInDown 0.8s ease-out;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
         }
 
         .hero-subtitle {
-            font-size: 1.4em;
+            font-size: 1.1em;
             color: #ddd;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             animation: fadeInUp 0.8s ease-out 0.2s both;
         }
 
         .search-box {
             display: flex;
-            max-width: 600px;
-            margin: 0 auto 50px;
-            gap: 10px;
+            gap: 8px;
             animation: fadeInUp 0.8s ease-out 0.4s both;
         }
 
         .search-box input {
             flex: 1;
-            padding: 15px 20px;
+            padding: 12px 15px;
             background: rgba(255, 215, 0, 0.1);
             border: 2px solid var(--gold);
             color: var(--text);
             border-radius: 50px;
-            font-size: 1em;
+            font-size: 0.95em;
             transition: all 0.3s;
         }
 
@@ -180,11 +201,11 @@
         .search-box input:focus {
             outline: none;
             background: rgba(255, 215, 0, 0.2);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
         }
 
         .search-btn {
-            padding: 15px 30px;
+            padding: 12px 20px;
             background: linear-gradient(45deg, var(--pink), var(--gold));
             color: var(--dark);
             border: none;
@@ -192,87 +213,69 @@
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 1.2em;
+            font-size: 1em;
         }
 
         .search-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
         }
 
         /* Features */
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            max-width: 1400px;
-            margin: 0 auto 80px;
-            padding: 0 20px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
             animation: fadeInUp 0.8s ease-out 0.6s both;
         }
 
         .feature-card {
             background: linear-gradient(135deg, rgba(255, 20, 147, 0.1), rgba(255, 215, 0, 0.05));
             border: 2px solid var(--gold);
-            padding: 40px 30px;
-            border-radius: 20px;
+            padding: 20px 15px;
+            border-radius: 15px;
             text-align: center;
             transition: all 0.3s;
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(255, 20, 147, 0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.3s;
         }
 
         .feature-card:hover {
             background: linear-gradient(135deg, rgba(255, 20, 147, 0.15), rgba(255, 215, 0, 0.1));
-            transform: translateY(-15px);
-            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
             border-color: var(--pink);
         }
 
-        .feature-card:hover::before {
-            opacity: 1;
-        }
-
         .feature-icon {
-            font-size: 3.5em;
-            margin-bottom: 15px;
+            font-size: 2.5em;
+            margin-bottom: 10px;
         }
 
         .feature-title {
             color: var(--gold);
-            font-size: 1.4em;
-            margin-bottom: 10px;
+            font-size: 1.1em;
+            margin-bottom: 8px;
             font-weight: 700;
         }
 
         .feature-text {
             color: #bbb;
-            font-size: 1em;
+            font-size: 0.85em;
         }
 
-        /* Section Title */
+        /* Products Grid */
+        .products-section {
+            margin-bottom: 40px;
+        }
+
         .section-title-container {
-            max-width: 1400px;
-            margin: 80px auto 50px;
-            padding: 0 20px;
             text-align: center;
+            margin-bottom: 30px;
         }
 
         .section-title {
-            font-size: 3em;
+            font-size: 2em;
             margin-bottom: 10px;
             background: linear-gradient(45deg, var(--pink), var(--gold));
             -webkit-background-clip: text;
@@ -283,26 +286,19 @@
 
         .section-description {
             color: #aaa;
-            font-size: 1.1em;
-        }
-
-        /* Products Grid */
-        .products-section {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px 80px;
+            font-size: 0.95em;
         }
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
         }
 
         .product-card {
             background: linear-gradient(135deg, rgba(255, 20, 147, 0.05), rgba(255, 215, 0, 0.02));
             border: 2px solid var(--gold);
-            border-radius: 20px;
+            border-radius: 15px;
             overflow: hidden;
             transition: all 0.3s;
             cursor: pointer;
@@ -311,175 +307,104 @@
 
         .product-card:hover {
             border-color: var(--pink);
-            transform: translateY(-15px);
-            box-shadow: 0 20px 50px rgba(255, 215, 0, 0.3);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.2);
         }
 
         .product-image {
             width: 100%;
-            height: 220px;
+            height: 150px;
             background: linear-gradient(135deg, var(--pink), var(--gold));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4em;
+            font-size: 3em;
             position: relative;
         }
 
         .sale-badge {
             position: absolute;
-            top: 15px;
-            right: 15px;
+            top: 10px;
+            right: 10px;
             background: var(--pink);
             color: white;
-            padding: 10px 18px;
+            padding: 6px 12px;
             border-radius: 50px;
             font-weight: 700;
-            font-size: 1em;
+            font-size: 0.8em;
             animation: pulse 2s infinite;
-            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4);
+            box-shadow: 0 3px 10px rgba(255, 20, 147, 0.4);
         }
 
         .product-info {
-            padding: 25px;
+            padding: 15px;
         }
 
         .product-name {
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             color: var(--gold);
-            font-size: 1.1em;
+            font-size: 0.95em;
         }
 
         .product-description {
-            font-size: 0.9em;
+            font-size: 0.8em;
             color: #aaa;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         .product-price {
             display: flex;
-            gap: 15px;
+            gap: 10px;
             align-items: center;
-            margin-bottom: 18px;
+            margin-bottom: 12px;
         }
 
         .price-old {
             text-decoration: line-through;
             color: #666;
-            font-size: 0.95em;
+            font-size: 0.85em;
         }
 
         .price-new {
             color: var(--pink);
             font-weight: 700;
-            font-size: 1.3em;
+            font-size: 1.1em;
         }
 
         .add-btn {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             background: linear-gradient(45deg, var(--pink), var(--gold));
             color: var(--dark);
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 1em;
+            font-size: 0.9em;
         }
 
         .add-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
-        }
-
-        /* Newsletter Section */
-        .newsletter {
-            background: linear-gradient(135deg, rgba(255, 20, 147, 0.15), rgba(255, 215, 0, 0.1));
-            border: 2px solid var(--gold);
-            padding: 60px 20px;
-            margin: 80px auto;
-            max-width: 1400px;
-            border-radius: 25px;
-            text-align: center;
-        }
-
-        .newsletter-label {
-            display: inline-block;
-            background: var(--pink);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-size: 0.9em;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .newsletter h2 {
-            font-size: 2.5em;
-            margin-bottom: 15px;
-            background: linear-gradient(45deg, var(--pink), var(--gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .newsletter p {
-            color: #aaa;
-            margin-bottom: 25px;
-            font-size: 1.1em;
-        }
-
-        .newsletter-form {
-            display: flex;
-            gap: 10px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .newsletter-form input {
-            flex: 1;
-            padding: 15px 20px;
-            background: rgba(255, 215, 0, 0.1);
-            border: 2px solid var(--gold);
-            color: var(--text);
-            border-radius: 50px;
-            font-size: 1em;
-        }
-
-        .newsletter-form input::placeholder {
-            color: #999;
-        }
-
-        .newsletter-form button {
-            padding: 15px 30px;
-            background: linear-gradient(45deg, var(--pink), var(--gold));
-            color: var(--dark);
-            border: none;
-            border-radius: 50px;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 1em;
+            box-shadow: 0 6px 15px rgba(255, 215, 0, 0.3);
         }
 
         /* Categories Section */
         .categories-section {
-            max-width: 1400px;
-            margin: 80px auto;
-            padding: 0 20px;
+            margin-bottom: 40px;
         }
 
         .categories-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 15px;
         }
 
         .category-card {
             background: linear-gradient(135deg, rgba(255, 20, 147, 0.1), rgba(255, 215, 0, 0.05));
             border: 2px solid var(--gold);
-            padding: 30px;
+            padding: 20px 15px;
             border-radius: 15px;
             text-align: center;
             cursor: pointer;
@@ -488,50 +413,148 @@
 
         .category-card:hover {
             background: linear-gradient(135deg, rgba(255, 20, 147, 0.15), rgba(255, 215, 0, 0.1));
-            transform: translateY(-10px);
+            transform: translateY(-8px);
             border-color: var(--pink);
         }
 
         .category-icon {
-            font-size: 3em;
-            margin-bottom: 15px;
+            font-size: 2.5em;
+            margin-bottom: 10px;
         }
 
         .category-name {
             color: var(--gold);
             font-weight: 700;
-            font-size: 1.2em;
+            font-size: 1em;
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            background: linear-gradient(135deg, rgba(255, 20, 147, 0.15), rgba(255, 215, 0, 0.1));
+            border: 2px solid var(--gold);
+            padding: 40px 15px;
+            margin-bottom: 40px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            font-size: 1.8em;
+            margin-bottom: 12px;
+            background: linear-gradient(45deg, var(--pink), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .newsletter p {
+            color: #aaa;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .newsletter-form input {
+            padding: 12px 15px;
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid var(--gold);
+            color: var(--text);
+            border-radius: 50px;
+            font-size: 0.95em;
+        }
+
+        .newsletter-form button {
+            padding: 12px 20px;
+            background: linear-gradient(45deg, var(--pink), var(--gold));
+            color: var(--dark);
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.95em;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(13, 13, 13, 0.98);
+            border-top: 3px solid var(--gold);
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+            padding: 10px 5px;
+            z-index: 1000;
+            box-shadow: 0 -4px 30px rgba(255, 215, 0, 0.1);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.75em;
+            font-weight: 600;
+            border: 2px solid transparent;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .nav-icon {
+            font-size: 1.5em;
+        }
+
+        .nav-label {
+            font-size: 0.7em;
+            text-align: center;
         }
 
         /* Footer */
         footer {
             background: rgba(13, 13, 13, 0.98);
             border-top: 3px solid var(--gold);
-            padding: 60px 20px 30px;
-            margin-top: 80px;
+            padding: 40px 15px 120px;
+            margin-top: 40px;
             box-shadow: 0 -4px 30px rgba(255, 215, 0, 0.1);
         }
 
         .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
         }
 
         .footer-section h3 {
             color: var(--gold);
-            margin-bottom: 20px;
-            font-size: 1.2em;
+            margin-bottom: 15px;
+            font-size: 1.1em;
         }
 
         .footer-section a, .footer-section p {
             display: block;
             color: #aaa;
             text-decoration: none;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
+            font-size: 0.9em;
             transition: color 0.3s;
         }
 
@@ -541,24 +564,25 @@
 
         .footer-bottom {
             border-top: 1px solid var(--border);
-            padding-top: 20px;
+            padding-top: 15px;
             text-align: center;
             color: #666;
+            font-size: 0.85em;
         }
 
         /* WhatsApp Button */
         .whatsapp-btn {
             position: fixed;
-            bottom: 30px;
-            left: 30px;
-            width: 70px;
-            height: 70px;
+            bottom: 120px;
+            left: 15px;
+            width: 60px;
+            height: 60px;
             background: linear-gradient(45deg, #25d366, #128c7e);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2em;
+            font-size: 1.8em;
             cursor: pointer;
             box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
             transition: all 0.3s;
@@ -567,7 +591,7 @@
         }
 
         .whatsapp-btn:hover {
-            transform: scale(1.15);
+            transform: scale(1.1);
             box-shadow: 0 12px 35px rgba(37, 211, 102, 0.6);
         }
 
@@ -575,7 +599,7 @@
         @keyframes fadeInDown {
             from {
                 opacity: 0;
-                transform: translateY(-40px);
+                transform: translateY(-30px);
             }
             to {
                 opacity: 1;
@@ -586,7 +610,7 @@
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(40px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -606,46 +630,58 @@
         /* Responsive */
         @media (max-width: 768px) {
             .hero-title {
-                font-size: 2.5em;
-            }
-
-            .nav {
-                gap: 10px;
-                flex-wrap: wrap;
-            }
-
-            .search-box {
-                flex-direction: column;
-            }
-
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            }
-
-            .whatsapp-btn {
-                bottom: 20px;
-                left: 20px;
-                width: 60px;
-                height: 60px;
-                font-size: 1.5em;
-            }
-
-            .newsletter-form {
-                flex-direction: column;
+                font-size: 2em;
             }
 
             .section-title {
-                font-size: 2em;
+                font-size: 1.6em;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+
+            .nav {
+                display: none !important;
+            }
+
+            .menu-toggle {
+                display: flex;
             }
         }
 
-        /* Language Specific */
-        [lang="tr"] {
-            direction: ltr;
-        }
+        @media (min-width: 769px) {
+            .menu-toggle {
+                display: none;
+            }
 
-        .hidden {
-            display: none;
+            .nav {
+                display: flex !important;
+            }
+
+            .bottom-nav {
+                display: none;
+            }
+
+            .whatsapp-btn {
+                bottom: 30px;
+                left: 30px;
+                width: 70px;
+                height: 70px;
+                font-size: 2em;
+            }
+
+            body {
+                padding-bottom: 0;
+            }
+
+            footer {
+                padding-bottom: 30px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
         }
     </style>
 </head>
@@ -655,202 +691,203 @@
         <div class="header-container">
             <div class="logo">✨ فراشات هوم</div>
             <nav class="nav">
-                <a href="#home" onclick="scrollToSection(event)">الرئيسية</a>
-                <a href="#categories" onclick="scrollToSection(event)">الفئات</a>
-                <a href="#products" onclick="scrollToSection(event)">المنتجات</a>
-                <a href="#newsletter" onclick="scrollToSection(event)">النشرة</a>
-                <a href="#contact" onclick="scrollToSection(event)">التواصل</a>
-                <button class="lang-toggle" onclick="toggleLanguage()">العربية | Türkçe</button>
+                <a href="#home">الرئيسية</a>
+                <a href="#categories">الفئات</a>
+                <a href="#products">المنتجات</a>
+                <a href="#newsletter">النشرة</a>
             </nav>
+            <button class="lang-toggle" onclick="toggleLanguage()">عربي | TR</button>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <span class="section-label" id="hero-label">🏠 القسم الرئيسي</span>
-        <h1 class="hero-title">فراشات هوم</h1>
-        <p class="hero-subtitle">Farashat Homm Life - اكتشفي عالم الفخامة والعناية</p>
-        <div class="search-box">
-            <input type="text" id="search-input" placeholder="ابحثي عن منتجك المفضل...">
-            <button class="search-btn" onclick="handleSearch()">🔍</button>
-        </div>
-    </section>
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <span class="section-label">🏠 الرئيسية</span>
+            <h1 class="hero-title">فراشات هوم</h1>
+            <p class="hero-subtitle">منتجات Homm Life الفاخرة بأسعار منافسة</p>
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="ابحثي...">
+                <button class="search-btn" onclick="handleSearch()">🔍</button>
+            </div>
+        </section>
 
-    <!-- Features -->
-    <section class="features">
-        <div class="feature-card">
-            <div class="feature-icon">🚀</div>
-            <div class="feature-title">توصيل سريع</div>
-            <div class="feature-text">خدمة توصيل موثوقة وسريعة إلى جميع أنحاء المملكة</div>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">💰</div>
-            <div class="feature-title">خصم 50%</div>
-            <div class="feature-text">عروض حصرية وأسعار منافسة لا تقبل المنافسة</div>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">✅</div>
-            <div class="feature-title">ضمان الجودة</div>
-            <div class="feature-text">منتجات أصلية 100% من Homm Life التركية</div>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">🛡️</div>
-            <div class="feature-title">آمان التسوق</div>
-            <div class="feature-text">دفع آمن وموثوق مع حماية كاملة للعملاء</div>
-        </div>
-    </section>
+        <!-- Features -->
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <div class="feature-title">توصيل سريع</div>
+                <div class="feature-text">خدمة توصيل موثوقة</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <div class="feature-title">خصم 50%</div>
+                <div class="feature-text">أسعار منافسة</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">✅</div>
+                <div class="feature-title">ضمان الجودة</div>
+                <div class="feature-text">منتجات أصلية</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <div class="feature-title">آمان التسوق</div>
+                <div class="feature-text">دفع آمن</div>
+            </div>
+        </section>
 
-    <!-- Categories Section -->
-    <section class="categories-section" id="categories">
-        <div class="section-title-container">
-            <span class="section-label">🏷️ الفئات</span>
-            <h2 class="section-title">فئات المنتجات</h2>
-            <p class="section-description">اختاري من أفضل فئات المنتجات</p>
-        </div>
-        <div class="categories-grid">
-            <div class="category-card">
-                <div class="category-icon">💄</div>
-                <div class="category-name">مستحضرات التجميل</div>
+        <!-- Categories Section -->
+        <section class="categories-section" id="categories">
+            <div class="section-title-container">
+                <span class="section-label">🏷️ الفئات</span>
+                <h2 class="section-title">فئات المنتجات</h2>
             </div>
-            <div class="category-card">
-                <div class="category-icon">🧴</div>
-                <div class="category-name">عناية البشرة</div>
-            </div>
-            <div class="category-card">
-                <div class="category-icon">🧼</div>
-                <div class="category-name">عناية الجسم</div>
-            </div>
-            <div class="category-card">
-                <div class="category-icon">💇</div>
-                <div class="category-name">عناية الشعر</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Products Section -->
-    <section class="products-section" id="products">
-        <div class="section-title-container">
-            <span class="section-label">🛍️ المنتجات</span>
-            <h2 class="section-title">منتجاتنا المميزة</h2>
-            <p class="section-description">اختاري من مجموعتنا الحصرية من منتجات Homm Life</p>
-        </div>
-        <div class="products-grid">
-            <div class="product-card">
-                <div class="product-image">💄<span class="sale-badge">-50%</span></div>
-                <div class="product-info">
-                    <div class="product-name">كريم العناية الفاخر</div>
-                    <div class="product-description">كريم مرطب فاخر من Homm Life</div>
-                    <div class="product-price">
-                        <span class="price-old">200 ر.س</span>
-                        <span class="price-new">100 ر.س</span>
-                    </div>
-                    <button class="add-btn" onclick="addToCart('كريم العناية الفاخر')">اطلبي الآن</button>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">💄</div>
+                    <div class="category-name">التجميل</div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🧴</div>
+                    <div class="category-name">البشرة</div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🧼</div>
+                    <div class="category-name">الجسم</div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">💇</div>
+                    <div class="category-name">الشعر</div>
                 </div>
             </div>
+        </section>
 
-            <div class="product-card">
-                <div class="product-image">🧴<span class="sale-badge">-50%</span></div>
-                <div class="product-info">
-                    <div class="product-name">سيروم الوجه المركز</div>
-                    <div class="product-description">سيروم مركز للعناية المكثفة</div>
-                    <div class="product-price">
-                        <span class="price-old">150 ر.س</span>
-                        <span class="price-new">75 ر.س</span>
+        <!-- Products Section -->
+        <section class="products-section" id="products">
+            <div class="section-title-container">
+                <span class="section-label">🛍️ المنتجات</span>
+                <h2 class="section-title">منتجاتنا المميزة</h2>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">💄<span class="sale-badge">-50%</span></div>
+                    <div class="product-info">
+                        <div class="product-name">كريم العناية</div>
+                        <div class="product-description">مرطب فاخر</div>
+                        <div class="product-price">
+                            <span class="price-old">200</span>
+                            <span class="price-new">100</span>
+                        </div>
+                        <button class="add-btn" onclick="addToCart('كريم العناية')">اطلبي</button>
                     </div>
-                    <button class="add-btn" onclick="addToCart('سيروم الوجه المركز')">اطلبي الآن</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🧴<span class="sale-badge">-50%</span></div>
+                    <div class="product-info">
+                        <div class="product-name">سيروم الوجه</div>
+                        <div class="product-description">مركز مكثف</div>
+                        <div class="product-price">
+                            <span class="price-old">150</span>
+                            <span class="price-new">75</span>
+                        </div>
+                        <button class="add-btn" onclick="addToCart('سيروم الوجه')">اطلبي</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">💅<span class="sale-badge">-50%</span></div>
+                    <div class="product-info">
+                        <div class="product-name">طلاء الأظافر</div>
+                        <div class="product-description">ألوان فاخرة</div>
+                        <div class="product-price">
+                            <span class="price-old">80</span>
+                            <span class="price-new">40</span>
+                        </div>
+                        <button class="add-btn" onclick="addToCart('طلاء الأظافر')">اطلبي</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🧼<span class="sale-badge">-50%</span></div>
+                    <div class="product-info">
+                        <div class="product-name">غسول الوجه</div>
+                        <div class="product-description">طبيعي وآمن</div>
+                        <div class="product-price">
+                            <span class="price-old">120</span>
+                            <span class="price-new">60</span>
+                        </div>
+                        <button class="add-btn" onclick="addToCart('غسول الوجه')">اطلبي</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">💇<span class="sale-badge">-50%</span></div>
+                    <div class="product-info">
+                        <div class="product-name">شامبو الشعر</div>
+                        <div class="product-description">مغذي فاخر</div>
+                        <div class="product-price">
+                            <span class="price-old">100</span>
+                            <span class="price-new">50</span>
+                        </div>
+                        <button class="add-btn" onclick="addToCart('شامبو الشعر')">اطلبي</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🧴<span class="sale-badge">-50%</span></div>
+                    <div class="product-info">
+                        <div class="product-name">بلسم الشعر</div>
+                        <div class="product-description">تغذية مكثفة</div>
+                        <div class="product-price">
+                            <span class="price-old">110</span>
+                            <span class="price-new">55</span>
+                        </div>
+                        <button class="add-btn" onclick="addToCart('بلسم الشعر')">اطلبي</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">💋<span class="sale-badge">-50%</span></div>
+                    <div class="product-info">
+                        <div class="product-name">أحمر الشفاه</div>
+                        <div class="product-description">ألوان متنوعة</div>
+                        <div class="product-price">
+                            <span class="price-old">90</span>
+                            <span class="price-new">45</span>
+                        </div>
+                        <button class="add-btn" onclick="addToCart('أحمر الشفاه')">اطلبي</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">👁️<span class="sale-badge">-50%</span></div>
+                    <div class="product-info">
+                        <div class="product-name">ظلال العيون</div>
+                        <div class="product-description">براقة وفخمة</div>
+                        <div class="product-price">
+                            <span class="price-old">85</span>
+                            <span class="price-new">42</span>
+                        </div>
+                        <button class="add-btn" onclick="addToCart('ظلال العيون')">اطلبي</button>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <div class="product-card">
-                <div class="product-image">💅<span class="sale-badge">-50%</span></div>
-                <div class="product-info">
-                    <div class="product-name">طلاء الأظافر الفاخر</div>
-                    <div class="product-description">طلاء أظافر بألوان فاخرة</div>
-                    <div class="product-price">
-                        <span class="price-old">80 ر.س</span>
-                        <span class="price-new">40 ر.س</span>
-                    </div>
-                    <button class="add-btn" onclick="addToCart('طلاء الأظافر الفاخر')">اطلبي الآن</button>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-image">🧼<span class="sale-badge">-50%</span></div>
-                <div class="product-info">
-                    <div class="product-name">غسول الوجه الطبيعي</div>
-                    <div class="product-description">غسول طبيعي للبشرة الحساسة</div>
-                    <div class="product-price">
-                        <span class="price-old">120 ر.س</span>
-                        <span class="price-new">60 ر.س</span>
-                    </div>
-                    <button class="add-btn" onclick="addToCart('غسول الوجه الطبيعي')">اطلبي الآن</button>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-image">💇<span class="sale-badge">-50%</span></div>
-                <div class="product-info">
-                    <div class="product-name">شامبو الشعر الفاخر</div>
-                    <div class="product-description">شامبو مغذي للشعر الجاف</div>
-                    <div class="product-price">
-                        <span class="price-old">100 ر.س</span>
-                        <span class="price-new">50 ر.س</span>
-                    </div>
-                    <button class="add-btn" onclick="addToCart('شامبو الشعر الفاخر')">اطلبي الآن</button>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-image">🧴<span class="sale-badge">-50%</span></div>
-                <div class="product-info">
-                    <div class="product-name">بلسم الشعر المغذي</div>
-                    <div class="product-description">بلسم مكثف لتغذية الشعر</div>
-                    <div class="product-price">
-                        <span class="price-old">110 ر.س</span>
-                        <span class="price-new">55 ر.س</span>
-                    </div>
-                    <button class="add-btn" onclick="addToCart('بلسم الشعر المغذي')">اطلبي الآن</button>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-image">💋<span class="sale-badge">-50%</span></div>
-                <div class="product-info">
-                    <div class="product-name">أحمر الشفاه الفاخر</div>
-                    <div class="product-description">أحمر شفاه بألوان مختلفة</div>
-                    <div class="product-price">
-                        <span class="price-old">90 ر.س</span>
-                        <span class="price-new">45 ر.س</span>
-                    </div>
-                    <button class="add-btn" onclick="addToCart('أحمر الشفاه الفاخر')">اطلبي الآن</button>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-image">👁️<span class="sale-badge">-50%</span></div>
-                <div class="product-info">
-                    <div class="product-name">ظلال العيون الملونة</div>
-                    <div class="product-description">ظلال عيون بألوان براقة</div>
-                    <div class="product-price">
-                        <span class="price-old">85 ر.س</span>
-                        <span class="price-new">42.5 ر.س</span>
-                    </div>
-                    <button class="add-btn" onclick="addToCart('ظلال العيون الملونة')">اطلبي الآن</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Newsletter Section -->
-    <section class="newsletter" id="newsletter">
-        <span class="newsletter-label">📧 النشرة البريدية</span>
-        <h2>اشتركي في نشرتنا البريدية</h2>
-        <p>احصلي على أحدث العروض والمنتجات الجديدة مباشرة إلى بريدك الإلكتروني</p>
-        <form class="newsletter-form" onsubmit="handleNewsletter(event)">
-            <input type="email" placeholder="أدخلي بريدك الإلكتروني..." required>
-            <button type="submit">اشتركي الآن</button>
-        </form>
-    </section>
+        <!-- Newsletter Section -->
+        <section class="newsletter" id="newsletter">
+            <span class="section-label">📧 النشرة</span>
+            <h2>اشتركي في النشرة البريدية</h2>
+            <p>احصلي على أحدث العروض والمنتجات الجديدة</p>
+            <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+                <input type="email" placeholder="بريدك الإلكتروني..." required>
+                <button type="submit">اشتركي الآن</button>
+            </form>
+        </section>
+    </div>
 
     <!-- Footer -->
     <footer id="contact">
@@ -864,21 +901,12 @@
                 <a href="#">التوصيل السريع</a>
                 <a href="#">الدفع الآمن</a>
                 <a href="#">الاسترجاع والاستبدال</a>
-                <a href="#">ضمان الجودة</a>
             </div>
             <div class="footer-section">
                 <h3>تواصلي معنا</h3>
                 <a href="tel:+966500000000">☎️ +966 50 000 0000</a>
                 <a href="mailto:info@farashat.com">📧 info@farashat.com</a>
                 <a href="#">📍 المملكة العربية السعودية</a>
-                <a href="#">🕐 24/7 خدمة العملاء</a>
-            </div>
-            <div class="footer-section">
-                <h3>تابعينا</h3>
-                <a href="#">📱 Instagram</a>
-                <a href="#">👍 Facebook</a>
-                <a href="#">🐦 Twitter</a>
-                <a href="#">▶️ YouTube</a>
             </div>
         </div>
         <div class="footer-bottom">
@@ -886,49 +914,52 @@
         </div>
     </footer>
 
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="bottom-nav">
+        <a class="nav-item active" href="#home" onclick="scrollToSection(event)">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">الرئيسية</span>
+        </a>
+        <a class="nav-item" href="#categories" onclick="scrollToSection(event)">
+            <span class="nav-icon">🏷️</span>
+            <span class="nav-label">الفئات</span>
+        </a>
+        <a class="nav-item" href="#products" onclick="scrollToSection(event)">
+            <span class="nav-icon">🛍️</span>
+            <span class="nav-label">المنتجات</span>
+        </a>
+        <a class="nav-item" href="#newsletter" onclick="scrollToSection(event)">
+            <span class="nav-icon">📧</span>
+            <span class="nav-label">النشرة</span>
+        </a>
+        <a class="nav-item" href="#contact" onclick="scrollToSection(event)">
+            <span class="nav-icon">📞</span>
+            <span class="nav-label">التواصل</span>
+        </a>
+    </nav>
+
     <!-- WhatsApp Button -->
     <div class="whatsapp-btn" onclick="window.open('https://wa.me/966500000000?text=السلام عليكم، أريد الاستفسار عن المنتجات', '_blank')" title="اتصلي بنا عبر الواتساب">
         💬
     </div>
 
     <script>
-        const translations = {
-            ar: {
-                'hero-label': '🏠 القسم الرئيسي',
-                'search-placeholder': 'ابحثي عن منتجك المفضل...',
-                'newsletter-label': '📧 النشرة البريدية',
-                'contact-label': '📞 التواصل'
-            },
-            tr: {
-                'hero-label': '🏠 Ana Bölüm',
-                'search-placeholder': 'Favori ürününüzü arayın...',
-                'newsletter-label': '📧 Bülten',
-                'contact-label': '📞 İletişim'
-            }
-        };
-
-        let currentLang = 'ar';
-
         function toggleLanguage() {
-            currentLang = currentLang === 'ar' ? 'tr' : 'ar';
-            document.documentElement.lang = currentLang;
-            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-            
-            // Update content
-            if (currentLang === 'tr') {
-                document.body.style.direction = 'ltr';
-            } else {
-                document.body.style.direction = 'rtl';
-            }
-            
-            alert(currentLang === 'ar' ? 'تم التبديل إلى العربية' : 'Türkçeye geçildi');
+            alert('تم تبديل اللغة');
+        }
+
+        function toggleMenu() {
+            const nav = document.querySelector('.nav');
+            nav.classList.toggle('active');
         }
 
         function scrollToSection(e) {
             e.preventDefault();
-            const target = document.querySelector(e.target.getAttribute('href'));
+            const target = document.querySelector(e.target.closest('a').getAttribute('href'));
             if (target) {
                 target.scrollIntoView({ behavior: 'smooth' });
+                document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+                e.target.closest('a').classList.add('active');
             }
         }
 
@@ -940,16 +971,16 @@
         }
 
         function addToCart(productName) {
-            alert(`تم إضافة ${productName} إلى السلة! 🛒\nيمكنك الآن التواصل عبر الواتساب لإكمال الطلب.`);
+            alert(`تم إضافة ${productName} إلى السلة! 🛒\nتواصلي عبر الواتساب لإكمال الطلب.`);
         }
 
         function handleNewsletter(e) {
             e.preventDefault();
-            alert('شكراً لاشتراكك! سيتم إرسال أحدث العروض إلى بريدك الإلكتروني.');
+            alert('شكراً لاشتراكك! سيتم إرسال العروض إلى بريدك الإلكتروني.');
             e.target.reset();
         }
 
-        console.log('✨ موقع فراشات هوم - تصميم جديد فخم مع دعم اللغتين!');
+        console.log('✨ موقع فراشات هوم - متوافق تماماً مع الجوال!');
     </script>
 </body>
 </html>
